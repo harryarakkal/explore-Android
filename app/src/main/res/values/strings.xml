@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">explARation</string>
+    <string name="places_key">AIzaSyBHLFc09PXjMvrntmIjFz7tmwAY0-nvRzc</string>
+    <string name="poi">amusement_park|aquarium|art_gallery|museum|stadium|zoo</string>
+    <string name="food">bakery|cafe|restaurant</string>
+    <string name="fast_food">meal_takeaway|cafe</string>
+    <string name="night_life">bar|night_club|casino|</string>
 </resources>
