@@ -11,6 +11,8 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.support.v4.app.ActivityCompat;
 
 import com.android.volley.Request;
@@ -24,6 +26,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import static java.lang.Math.abs;
@@ -35,10 +38,10 @@ import static java.lang.Math.sqrt;
  * Finds nearby places to explore.
  */
 
-public class Places implements LocationListener, SensorEventListener{
+public class Places implements Serializable, LocationListener, SensorEventListener{
     private final double empty  = 0.000000000000000000001;
 
-    private Context context;
+    private transient Context context;
 
     private ArrayList<Place> nearbyPlaces;
     private ArrayList<ArrayList<double[]>> routes;
@@ -237,4 +240,6 @@ public class Places implements LocationListener, SensorEventListener{
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
 
     }
+
+
 }
