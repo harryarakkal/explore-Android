@@ -47,13 +47,11 @@ public class MainActivity extends AppCompatActivity {
         mPlaceDetectionClient = Places.getPlaceDetectionClient(this, null);
 
         com.example.explaration.Places p = new com.example.explaration.Places(getBaseContext());
-        p.findNearby("poi");
+        p.findNearby("food");
+
         //place1, place2, place3
         //angle1, angle1, angle3
 
-        // Example of a call to a native method
-        TextView tv = (TextView) findViewById(R.id.sample_text);
-        tv.setText(stringFromJNI());
     }
 
     /**
