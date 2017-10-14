@@ -7,13 +7,11 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
-import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -28,26 +26,25 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-import static java.lang.Math.atan;
 import static java.lang.Math.abs;
+import static java.lang.Math.atan;
 import static java.lang.Math.sqrt;
 
 /**
  * Created by harryarakkal on 10/13/17.
+ * Finds nearby places to explore.
  */
 
 public class Places implements LocationListener, SensorEventListener{
-    final int radius = 2500;
-    final double empty  = 0.000000000000000000001;
+    private final double empty  = 0.000000000000000000001;
 
-    Context context;
+    private Context context;
 
     private ArrayList<Place> nearbyPlaces;
     private ArrayList<ArrayList<double[]>> routes;
     private double[] l;
     private double[] angles;
 
-    SensorManager mSensorManager;
     private final float[] mAccelerometerReading = new float[3];
     private final float[] mMagnetometerReading = new float[3];
     private final float[] mRotationMatrix = new float[9];
@@ -58,7 +55,7 @@ public class Places implements LocationListener, SensorEventListener{
         nearbyPlaces = new ArrayList<>();
         angles = new double[]{0,0,0};
         l = new double[2];
-        mSensorManager = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
+        SensorManager mSensorManager = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
         if (mSensorManager != null) {
             mSensorManager.registerListener(this, mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER),
                     SensorManager.SENSOR_DELAY_NORMAL, SensorManager.SENSOR_DELAY_UI);
@@ -78,6 +75,7 @@ public class Places implements LocationListener, SensorEventListener{
         getLocation();
         while(l == null){}
         url += "location=" + Double.toString(l[0])+","+Double.toString(l[1]);
+        int radius = 2500;
         url += "&radius=" + radius;
         url += "&type=";
         switch(type){
